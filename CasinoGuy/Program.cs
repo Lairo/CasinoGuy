@@ -10,8 +10,14 @@
 
             while (true)
             {
+                if (player.Cash == 0)
+                {
+                    Console.WriteLine("The house always wins.");
+                    return;
+
+                }
                 Console.WriteLine($"Welcome to the casino. The odds are {odds}.");
-                player.WriteMyInfo();                
+                player.WriteMyInfo();
 
                 Console.Write("How much do you want to bet: ");
                 string? howMuch = Console.ReadLine();
@@ -19,23 +25,26 @@
                 if (int.TryParse(howMuch, out int pot))
                 {
                     double bob = Random.Shared.NextDouble();
-                    if ( bob < odds & player.Cash != 0 )
+                    if (bob < odds & player.Cash != 0)
                     {
                         int cashGiven = pot * 2;
                         player.ReceiveCash(cashGiven);
                         Console.WriteLine($"You Win {cashGiven}");
-                    }                    
+                    }
                     else
                     {
                         int cashGiven = player.GiveCash(pot);
-                        Console.WriteLine("Bad luck, You lose.");                        
+                        Console.WriteLine("Bad luck, You lose.");
+
                     }
 
                 }
                 else
                 {
-                    Console.WriteLine("The house always wins.");
+                    Console.WriteLine("\nPlease enter an amount(or blank line to exit).\n");
                 }
+
+
             }
 
         }
